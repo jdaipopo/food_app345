@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_app/pages/home/home_page.dart';
 
 class LoginPage extends StatefulWidget {
+  static const routeName = '/login';
   const LoginPage({Key? key}) : super(key: key);
 
   @override
@@ -157,10 +158,11 @@ class _LoginPageState extends State<LoginPage> {
 
       if(input.length == 6) {
         if(input == "123456") {
-          Navigator.pushReplacement(
+          /*Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context)=>HomePage())
-          );
+          );*/
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
         }
         else {
           _showMaterialDialog("Error", "please try again");

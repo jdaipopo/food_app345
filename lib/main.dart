@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/pages/home/home_page.dart';
+import 'package:food_app/pages/home/sizebigFood.dart';
 import 'package:food_app/pages/login/login_page.dart';
 
 void main() {
@@ -25,6 +27,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: LoginPage(),
+      routes: {
+        LoginPage.routeName: (context) => const LoginPage(),
+        HomePage.routeName : (context) => const HomePage(),
+        sizebigFood.routename: (context) => const sizebigFood(),
+      },
+      //กำหนดว่าหน้าแรกคือหน้าไหน
+      initialRoute: LoginPage.routeName,
     );
   }
 }
