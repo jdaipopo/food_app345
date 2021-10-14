@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/pages/home/home_page.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -157,17 +160,8 @@ class _LoginPageState extends State<LoginPage> {
       }
 
       if(input.length == 6) {
-        if(input == "123456") {
-          /*Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context)=>HomePage())
-          );*/
-          Navigator.pushReplacementNamed(context, HomePage.routeName);
-        }
-        else {
-          _showMaterialDialog("Error", "please try again");
-          input = "";
-        }
+        //here
+        checkPin();
       }
       /*input = num >= 0
           ? '$input$num'  // '$number' : interpolate
@@ -175,6 +169,29 @@ class _LoginPageState extends State<LoginPage> {
             ? input.substring(0, input.length-1)
             : input);*/
     });
+  }
+  
+  Future<void> checkPin() async {
+    var url = Uri.parse("https://cpsu-test-api.herokuapp.com/login");
+    var response = await http.post(url,body:{
+      'pin':input
+    });
+    if (response.statusCode == 200) {
+      Map < String , dynamic > jsonbody = json.decode(response.body);
+      String status = jsonbody["status"];
+      String? message = jsonbody["message"];
+      bool data = jsonbody["data"];
+
+      setState(() {
+        if (data == true) {
+          Navigator.pushReplacementNamed(context, HomePage.routeName);
+        }
+        else {
+          _showMaterialDialog("Error", "Please try new pin");
+        }
+        input = '';
+      });
+    }
   }
 
 /*onPressed: () {

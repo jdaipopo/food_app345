@@ -25,6 +25,12 @@ class _HomePageState extends State<HomePage> {
         Text(
             current_page==0?
             "FOOD":"PROFILE"),
+
+        actions: [
+          IconButton(onPressed:  () {}, icon: Icon(Icons.search)),
+          IconButton(onPressed:  () {}, icon: Icon(Icons.refresh)),
+        ],
+
       ),
       drawer: Drawer(
         child: ListView(
